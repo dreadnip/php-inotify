@@ -20,7 +20,7 @@ class WatchedResourceCollection extends ArrayCollection
         parent::__construct($elements);
     }
 
-    public function set($key, $value)
+    public function set($key, $value): void
     {
         if (!$value instanceof WatchedResource) {
             throw new InvalidArgumentException('Invalid collection member type.');
@@ -29,12 +29,12 @@ class WatchedResourceCollection extends ArrayCollection
         parent::set($key, $value);
     }
 
-    public function add($element)
+    public function add($element): bool
     {
         if (!$element instanceof WatchedResource) {
             throw new InvalidArgumentException('Invalid collection member type.');
         }
 
-        parent::add($element);
+        return parent::add($element);
     }
 }

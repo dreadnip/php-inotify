@@ -3,6 +3,7 @@ log
 /vendor
 composer.phar
 composer.lock
-.php_cs.cache
+.phpcs-cache
+.phpunit.result.cache
 /example/profiler.php
 .idea/
