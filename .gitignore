@@ -4,5 +4,6 @@ log
 composer.phar
 composer.lock
 .phpcs-cache
+.phpunit.result.cache
 /example/profiler.php
 .idea/
