@@ -26,8 +26,14 @@ class InotifyProxy implements InotifyProxyInterface
     public function read(): Generator
     {
         $events = inotify_read($this->inotify);
+
         if (false !== $events) {
             foreach ($events as $event) {
+                // Prevent duplicate events thrown by editor temp files
+                if (str_ends_with($event['name'], '~')) {
+                    continue;
+                }
+
                 $event = new InotifyEvent(
                     $event['wd'],
                     InotifyEventCodeEnum::from($event['mask']),
@@ -37,7 +43,7 @@ class InotifyProxy implements InotifyProxyInterface
                     time()
                 );
 
-                // if file is removed we need clean watchedResources
+                // If the file was removed we need to clean watchedResources
                 if ($event->getInotifyEventCode() === InotifyEventCodeEnum::ON_IGNORED) {
                     unset($this->watchedResources[$event->getId()]);
                 }
