@@ -38,6 +38,9 @@ class WatchedResourceCollection extends ArrayCollection
         return parent::add($element);
     }
 
+    /**
+     * @param array<string> $paths
+     */
     public static function fromArray(array $paths, InotifyEventCodeEnum $flag, string $customName): self
     {
         $collection = new self();

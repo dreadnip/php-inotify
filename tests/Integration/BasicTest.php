@@ -17,15 +17,15 @@ class BasicTest extends TestCase
         $path = $this->getPath();
         $randomFile = $this->getRandomName();
         $randomDir = $this->getRandomName();
-        $file = $path . $randomFile;
-        $dir = $path . $randomDir;
+        $file = $path . DIRECTORY_SEPARATOR . $randomFile;
+        $dir = $path . DIRECTORY_SEPARATOR . $randomDir;
         $custom = uniqid('custom-', true);
 
         $inotify = new InotifyProxy();
         $inotify->addWatch(
             new WatchedResource(
                 $path,
-                InotifyEventCodeEnum::ON_ALL_EVENTS->value,
+                InotifyEventCodeEnum::ON_ALL_EVENTS,
                 $custom
             )
         );
@@ -42,12 +42,12 @@ class BasicTest extends TestCase
         }
 
         self::assertCount(6, $events);
-        self::assertEquals(InotifyEventCodeEnum::ON_CREATE->value, $events[0]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_OPEN->value, $events[1]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_CLOSE_WRITE->value, $events[2]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB->value, $events[3]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_DELETE->value, $events[4]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_CREATE_HIGH->value, $events[5]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_CREATE, $events[0]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_OPEN, $events[1]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_CLOSE_WRITE, $events[2]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB, $events[3]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_DELETE, $events[4]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_CREATE_HIGH, $events[5]->getInotifyEventCode());
 
         $results = $events[0]->toArray();
         unset($results['timestamp']);
@@ -90,7 +90,7 @@ class BasicTest extends TestCase
     {
         $path = $this->getPath();
         $randomFile = $this->getRandomName();
-        $file = $path . $randomFile;
+        $file = $path . DIRECTORY_SEPARATOR . $randomFile;
         $custom = uniqid('custom-', true);
 
         $this->createFile($file);
@@ -99,7 +99,7 @@ class BasicTest extends TestCase
         $inotify->addWatch(
             new WatchedResource(
                 $file,
-                InotifyEventCodeEnum::ON_ALL_EVENTS->value,
+                InotifyEventCodeEnum::ON_ALL_EVENTS,
                 $custom
             )
         );
@@ -113,9 +113,9 @@ class BasicTest extends TestCase
         }
 
         self::assertCount(3, $events);
-        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB->value, $events[0]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_DELETE_SELF->value, $events[1]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_IGNORED->value, $events[2]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB, $events[0]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_DELETE_SELF, $events[1]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_IGNORED, $events[2]->getInotifyEventCode());
 
         $results = $events[0]->toArray();
         unset($results['timestamp']);
@@ -139,7 +139,7 @@ class BasicTest extends TestCase
 
     private function getPath(): string
     {
-        return sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+        return sys_get_temp_dir();
     }
 
     private function getRandomName(): string
