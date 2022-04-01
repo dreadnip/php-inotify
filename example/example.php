@@ -27,8 +27,8 @@ include __DIR__ . '/../vendor/autoload.php';
         WatchedResourceCollection::createSingle(
             sys_get_temp_dir(),
             // sys_get_temp_dir() . '/test.log',
-            //InotifyEventCodeEnum::ON_CREATE()->getValue() | InotifyEventCodeEnum::ON_DELETE()->getValue(),
-            InotifyEventCodeEnum::ON_ALL_EVENTS()->getValue(),
+            //InotifyEventCodeEnum::ON_CREATE->value | InotifyEventCodeEnum::ON_DELETE->value,
+            InotifyEventCodeEnum::ON_ALL_EVENTS->value,
             'test'
         )
     );

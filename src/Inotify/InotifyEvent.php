@@ -59,12 +59,12 @@ class InotifyEvent implements Arrayable, JsonSerializable
 
     public function getInotifyEventCode(): int
     {
-        return $this->inotifyEventCodeEnum->getValue();
+        return $this->inotifyEventCodeEnum->value;
     }
 
     public function getInotifyEventCodeDescription(): string
     {
-        return InotifyEventCodeEnum::getCodeDescription($this->getInotifyEventCode());
+        return $this->inotifyEventCodeEnum->getDescription();
     }
 
     public function getUniqueId(): int

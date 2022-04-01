@@ -30,7 +30,7 @@ class InotifyProxy implements InotifyProxyInterface
             foreach ($events as $event) {
                 $event = new InotifyEvent(
                     $event['wd'],
-                    InotifyEventCodeEnum::createFromMask($event['mask']),
+                    InotifyEventCodeEnum::from($event['mask']),
                     $event['cookie'],
                     $event['name'],
                     $this->watchedResources[$event['wd']],
@@ -38,7 +38,7 @@ class InotifyProxy implements InotifyProxyInterface
                 );
 
                 // if file is removed we need clean watchedResources
-                if ($event->getInotifyEventCode() === InotifyEventCodeEnum::ON_IGNORED()->getValue()) {
+                if ($event->getInotifyEventCode() === InotifyEventCodeEnum::ON_IGNORED->value) {
                     unset($this->watchedResources[$event->getId()]);
                 }
 

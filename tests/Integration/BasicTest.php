@@ -15,7 +15,7 @@ class BasicTest extends TestCase
     /**
      * @test
      */
-    public function shouldRecivieEventsOnDir(): void
+    public function shouldReceiveEventsOnDir(): void
     {
         $path = $this->getPath();
         $randomFile = $this->getRandomName();
@@ -28,7 +28,7 @@ class BasicTest extends TestCase
         $inotify->addWatch(
             new WatchedResource(
                 $path,
-                InotifyEventCodeEnum::ON_ALL_EVENTS()->getValue(),
+                InotifyEventCodeEnum::ON_ALL_EVENTS->value,
                 $custom
             )
         );
@@ -45,12 +45,12 @@ class BasicTest extends TestCase
         }
 
         self::assertCount(6, $events);
-        self::assertEquals(InotifyEventCodeEnum::ON_CREATE()->getValue(), $events[0]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_OPEN()->getValue(), $events[1]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_CLOSE_WRITE()->getValue(), $events[2]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB()->getValue(), $events[3]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_DELETE()->getValue(), $events[4]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_CREATE_HIGH()->getValue(), $events[5]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_CREATE->value, $events[0]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_OPEN->value, $events[1]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_CLOSE_WRITE->value, $events[2]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB->value, $events[3]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_DELETE->value, $events[4]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_CREATE_HIGH->value, $events[5]->getInotifyEventCode());
 
         $results = $events[0]->toArray();
         unset($results['timestamp']);
@@ -58,8 +58,8 @@ class BasicTest extends TestCase
         self::assertEquals(
             [
                 'id' => 1,
-                'eventCode' => InotifyEventCodeEnum::ON_CREATE()->getValue(),
-                'eventDescription' => InotifyEventCodeEnum::getCodeDescription(InotifyEventCodeEnum::ON_CREATE()->getValue()),
+                'eventCode' => InotifyEventCodeEnum::ON_CREATE->value,
+                'eventDescription' => InotifyEventCodeEnum::ON_CREATE->getDescription(),
                 'uniqueId' => 0,
                 'fileName' => $randomFile,
                 'pathName' => $path,
@@ -75,8 +75,8 @@ class BasicTest extends TestCase
         self::assertEquals(
             [
                 'id' => 1,
-                'eventCode' => InotifyEventCodeEnum::ON_CREATE_HIGH()->getValue(),
-                'eventDescription' => InotifyEventCodeEnum::getCodeDescription(InotifyEventCodeEnum::ON_CREATE_HIGH()->getValue()),
+                'eventCode' => InotifyEventCodeEnum::ON_CREATE_HIGH->value,
+                'eventDescription' => InotifyEventCodeEnum::ON_CREATE_HIGH->getDescription(),
                 'uniqueId' => 0,
                 'fileName' => $randomDir,
                 'pathName' => $path,
@@ -130,7 +130,7 @@ class BasicTest extends TestCase
         $inotify->addWatch(
             new WatchedResource(
                 $file,
-                InotifyEventCodeEnum::ON_ALL_EVENTS()->getValue(),
+                InotifyEventCodeEnum::ON_ALL_EVENTS->value,
                 $custom
             )
         );
@@ -144,9 +144,9 @@ class BasicTest extends TestCase
         }
 
         self::assertCount(3, $events);
-        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB()->getValue(), $events[0]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_DELETE_SELF()->getValue(), $events[1]->getInotifyEventCode());
-        self::assertEquals(InotifyEventCodeEnum::ON_IGNORED()->getValue(), $events[2]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_ATTRIB->value, $events[0]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_DELETE_SELF->value, $events[1]->getInotifyEventCode());
+        self::assertEquals(InotifyEventCodeEnum::ON_IGNORED->value, $events[2]->getInotifyEventCode());
 
         $results = $events[0]->toArray();
         unset($results['timestamp']);
@@ -154,8 +154,8 @@ class BasicTest extends TestCase
         self::assertEquals(
             [
                 'id' => 1,
-                'eventCode' => InotifyEventCodeEnum::ON_ATTRIB()->getValue(),
-                'eventDescription' => InotifyEventCodeEnum::getCodeDescription(InotifyEventCodeEnum::ON_ATTRIB()->getValue()),
+                'eventCode' => InotifyEventCodeEnum::ON_ATTRIB->value,
+                'eventDescription' => InotifyEventCodeEnum::ON_ATTRIB->getDescription(),
                 'uniqueId' => 0,
                 'fileName' => '',
                 'pathName' => $file,
