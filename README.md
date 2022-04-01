@@ -1,29 +1,21 @@
-php-inotify
+php-inotify (fork)
 =========
-[![Build Status](https://scrutinizer-ci.com/g/krowinski/php-inotify/badges/build.png?b=master)](https://scrutinizer-ci.com/g/krowinski/php-inotify/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/krowinski/php-inotify/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/krowinski/php-inotify/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/krowinski/php-inotify/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/krowinski/php-inotify/?branch=master)
-[![PHP Tests](https://github.com/krowinski/php-inotify/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/krowinski/php-inotify/actions/workflows/tests.yml)
 
-Why
-=========
-In cases when you need to scan dir to find new files or files modifications, 
-you probably will create some script and implements pulling mechanism.
-That is good for small systems with less files but not efficient enough for big one.  
-And that why we got inotify mechanism that generate event on file|dir changes 
-like create, delete, change and many more that we can listen to.
-More info in php manual. [here](https://www.php.net/manual/en/book.inotify.php) 
+This is a PHP8.1 fork of the excellent package by [krowinski](https://github.com/krowinski/php-inotify).
 
 Installation
 =========
 ```bash
-composer require krowinski/php-inotify
+composer require dreadnip/php-inotify
 ```
 
 Installing inotify extension for php 
 =========
 To listen on event we need php extension called inotify.
-In most cases you just need to install using pecl
+In most cases you just need to install using pecl:
+```
+pecl install inotify
+```
 (example in [dockerfile](https://github.com/krowinski/php-inotify/blob/master/Dockerfile))
 
 
