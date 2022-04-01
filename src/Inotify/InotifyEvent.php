@@ -30,7 +30,7 @@ class InotifyEvent implements JsonSerializable
     {
         return [
             'id' => $this->getId(),
-            'eventCode' => $this->getInotifyEventCode(),
+            'eventCode' => $this->getInotifyEventCode()->value,
             'eventDescription' => $this->getInotifyEventCodeDescription(),
             'uniqueId' => $this->getUniqueId(),
             'fileName' => $this->getFileName(),
@@ -46,9 +46,9 @@ class InotifyEvent implements JsonSerializable
         return $this->id;
     }
 
-    public function getInotifyEventCode(): int
+    public function getInotifyEventCode(): InotifyEventCodeEnum
     {
-        return $this->inotifyEventCodeEnum->value;
+        return $this->inotifyEventCodeEnum;
     }
 
     public function getInotifyEventCodeDescription(): string

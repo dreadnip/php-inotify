@@ -38,7 +38,7 @@ class InotifyProxy implements InotifyProxyInterface
                 );
 
                 // if file is removed we need clean watchedResources
-                if ($event->getInotifyEventCode() === InotifyEventCodeEnum::ON_IGNORED->value) {
+                if ($event->getInotifyEventCode() === InotifyEventCodeEnum::ON_IGNORED) {
                     unset($this->watchedResources[$event->getId()]);
                 }
 
@@ -57,7 +57,7 @@ class InotifyProxy implements InotifyProxyInterface
         $id = inotify_add_watch(
             $this->inotify,
             $watchedResource->getPathname(),
-            $watchedResource->getWatchOnChangeFlags()
+            $watchedResource->getEventCode()->value
         );
 
         $this->watchedResources[$id] = $watchedResource;

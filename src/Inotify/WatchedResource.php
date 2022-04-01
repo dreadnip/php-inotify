@@ -8,7 +8,7 @@ class WatchedResource
 {
     public function __construct(
         private string $pathname,
-        private int $watchOnChangeFlags,
+        private InotifyEventCodeEnum $eventCode,
         private string $customName
     ) {
     }
@@ -18,9 +18,9 @@ class WatchedResource
         return $this->pathname;
     }
 
-    public function getWatchOnChangeFlags(): int
+    public function getEventCode(): InotifyEventCodeEnum
     {
-        return $this->watchOnChangeFlags;
+        return $this->eventCode;
     }
 
     public function getCustomName(): string
