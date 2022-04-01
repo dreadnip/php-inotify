@@ -4,17 +4,39 @@ declare(strict_types=1);
 
 namespace Inotify;
 
-use Vistik\Collections\TypedCollection;
+use Doctrine\Common\Collections\ArrayCollection;
+use InvalidArgumentException;
 
-class WatchedResourceCollection extends TypedCollection
+class WatchedResourceCollection extends ArrayCollection
 {
-    protected $type = WatchedResource::class;
+    protected string $type = WatchedResource::class;
 
-    public static function createSingle(
-        string $pathname,
-        int $watchOnChangeFlags,
-        string $customName
-    ): self {
-        return (new self())->push(new WatchedResource($pathname, $watchOnChangeFlags, $customName));
+    public function __construct(array $elements = [])
+    {
+        foreach ($elements as $element) {
+            if (!$element instanceof WatchedResource) {
+                throw new InvalidArgumentException('Invalid collection member type.');
+            }
+        }
+
+        parent::__construct($elements);
+    }
+
+    public function set($key, $value)
+    {
+        if (!$value instanceof WatchedResource) {
+            throw new InvalidArgumentException('Invalid collection member type.');
+        }
+
+        parent::set($key, $value);
+    }
+
+    public function add($element)
+    {
+        if (!$element instanceof WatchedResource) {
+            throw new InvalidArgumentException('Invalid collection member type.');
+        }
+
+        parent::add($element);
     }
 }
