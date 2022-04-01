@@ -70,7 +70,7 @@ enum InotifyEventCodeEnum: int
 
     public function getDescription(): string
     {
-        if (!isset(self::DESCRIPTIONS[$this->value])) {
+        if (!array_key_exists($this->value, self::DESCRIPTIONS)) {
             throw new InvalidArgumentException('Unknown code');
         }
 

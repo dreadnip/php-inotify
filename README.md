@@ -32,7 +32,7 @@ Example
 You can find example in 
 [example.php](https://github.com/krowinski/php-inotify/blob/master/example/example.php)
 and events that you can listen to [InotifyEventCodeEnum.php](https://github.com/krowinski/php-inotify/blob/master/src/Inotify/InotifyEventCodeEnum.php)
-Event implement Arrayable, JsonSerializable and __toString.
+Event implement JsonSerializable and __toString.
  
 ```php
 Array

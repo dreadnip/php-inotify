@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Inotify;
 
-use Illuminate\Contracts\Support\Arrayable;
 use JsonSerializable;
 
-class InotifyEvent implements Arrayable, JsonSerializable
+class InotifyEvent implements JsonSerializable
 {
     public function __construct(
         private int $id,
@@ -24,6 +23,9 @@ class InotifyEvent implements Arrayable, JsonSerializable
         return (string) print_r($this->toArray(), true);
     }
 
+    /**
+     * @return array<string, string|int>
+     */
     public function toArray(): array
     {
         return [
@@ -88,6 +90,9 @@ class InotifyEvent implements Arrayable, JsonSerializable
         return $this->timestamp;
     }
 
+    /**
+     * @return array<string, string|int>
+     */
     public function jsonSerialize(): array
     {
         return $this->toArray();

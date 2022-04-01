@@ -25,10 +25,8 @@ class InotifyConsumerFactory
             $this->inotifyProxy->addWatch($resource);
         }
 
-        while ($events = $this->inotifyProxy->read()) {
-            foreach ($events as $event) {
-                $this->eventDispatcher->dispatch($event);
-            }
+        foreach ($this->inotifyProxy->read() as $event) {
+            $this->eventDispatcher->dispatch($event);
         }
 
         $this->inotifyProxy->closeWatchers();
