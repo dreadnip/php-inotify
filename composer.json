@@ -1,5 +1,5 @@
 {
-  "name": "krowinski/php-inotify",
+  "name": "dreadnip/php-inotify",
   "description": "Wraps php inotify module into object and dispatch them using event dispatcher.",
   "keywords": [
     "inotify"
