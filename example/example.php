@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Inotify\InotifyConsumerFactory;
 use Inotify\InotifyEvent;
 use Inotify\InotifyEventCodeEnum;
+use Inotify\WatchedResource;
 use Inotify\WatchedResourceCollection;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -24,11 +25,13 @@ include __DIR__ . '/../vendor/autoload.php';
             }
         }
     )->consume(
-        WatchedResourceCollection::createSingle(
-            sys_get_temp_dir(),
-            // sys_get_temp_dir() . '/test.log',
-            //InotifyEventCodeEnum::ON_CREATE->value | InotifyEventCodeEnum::ON_DELETE->value,
-            InotifyEventCodeEnum::ON_ALL_EVENTS->value,
-            'test'
-        )
+        new WatchedResourceCollection([
+            new WatchedResource(
+                sys_get_temp_dir(),
+                // sys_get_temp_dir() . '/test.log',
+                //InotifyEventCodeEnum::ON_CREATE->value | InotifyEventCodeEnum::ON_DELETE->value,
+                InotifyEventCodeEnum::ON_ALL_EVENTS->value,
+                'test'
+            )
+        ])
     );
