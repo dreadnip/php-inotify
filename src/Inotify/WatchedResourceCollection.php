@@ -40,7 +40,7 @@ class WatchedResourceCollection extends ArrayCollection
 
     public static function fromArray(array $paths, InotifyEventCodeEnum $flag, string $customName): self
     {
-        $collection = new self;
+        $collection = new self();
 
         foreach ($paths as $path) {
             $collection->add(
