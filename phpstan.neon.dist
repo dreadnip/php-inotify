@@ -8,3 +8,6 @@ parameters:
   level: 9
   paths:
     - src/
+  ignoreErrors:
+    - '#While loop condition is always true.#'
+    - '#Unreachable statement - code above always terminates.#'
