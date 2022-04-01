@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"Inotify\\Tests\\Integration\\BasicTest::shouldReceiveEventsOnDir":0.02,"Inotify\\Tests\\Integration\\BasicTest::shouldRecivieEventsOnFile":0}}

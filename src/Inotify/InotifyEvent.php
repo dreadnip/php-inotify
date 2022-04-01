@@ -9,32 +9,19 @@ use JsonSerializable;
 
 class InotifyEvent implements Arrayable, JsonSerializable
 {
-    private int $id;
-    private InotifyEventCodeEnum $inotifyEventCodeEnum;
-    private int $uniqueId;
-    private string $fileName;
-    private WatchedResource $watchedResource;
-    private int $timestamp;
-
     public function __construct(
-        int $descriptor,
-        InotifyEventCodeEnum $inotifyEventCodeEnum,
-        int $uniqueId,
-        string $fileName,
-        WatchedResource $watchedResource,
-        int $timestamp
+        private int $id,
+        private InotifyEventCodeEnum $inotifyEventCodeEnum,
+        private int $uniqueId,
+        private string $fileName,
+        private WatchedResource $watchedResource,
+        private int $timestamp
     ) {
-        $this->id = $descriptor;
-        $this->inotifyEventCodeEnum = $inotifyEventCodeEnum;
-        $this->uniqueId = $uniqueId;
-        $this->fileName = $fileName;
-        $this->watchedResource = $watchedResource;
-        $this->timestamp = $timestamp;
     }
 
     public function __toString(): string
     {
-        return (string)print_r($this->toArray(), true);
+        return (string) print_r($this->toArray(), true);
     }
 
     public function toArray(): array

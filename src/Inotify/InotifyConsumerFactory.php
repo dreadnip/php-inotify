@@ -10,25 +10,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class InotifyConsumerFactory
 {
-    private $inotifyProxy;
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
     public function __construct(
-        InotifyProxyInterface $inotifyProxy = null,
-        EventDispatcherInterface $eventDispatcher = null
+        private InotifyProxyInterface $inotifyProxy = new InotifyProxy(),
+        private EventDispatcherInterface $eventDispatcher = new EventDispatcher()
     ) {
-        $this->inotifyProxy = $inotifyProxy;
-        $this->eventDispatcher = $eventDispatcher;
-
-        if (null === $eventDispatcher) {
-            $this->eventDispatcher = new EventDispatcher();
-        }
-        if (null === $inotifyProxy) {
-            $this->inotifyProxy = new InotifyProxy();
-        }
     }
 
     /**
