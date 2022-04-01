@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class BasicTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function shouldReceiveEventsOnDir(): void
+    public function testShouldReceiveEventsOnDir(): void
     {
         $path = $this->getPath();
         $randomFile = $this->getRandomName();
@@ -89,35 +86,7 @@ class BasicTest extends TestCase
         $inotify->closeWatchers();
     }
 
-    private function getPath(): string
-    {
-        return sys_get_temp_dir() . DIRECTORY_SEPARATOR;
-    }
-
-    private function getRandomName(): string
-    {
-        return uniqid('test-', true);
-    }
-
-    private function createFile(string $filePath): void
-    {
-        touch($filePath);
-    }
-
-    private function removeFile(string $filePath): void
-    {
-        unlink($filePath);
-    }
-
-    private function createDir(string $filePath): void
-    {
-        mkdir($filePath);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldRecivieEventsOnFile(): void
+    public function testShouldReceiveEventsOnFile(): void
     {
         $path = $this->getPath();
         $randomFile = $this->getRandomName();
@@ -166,5 +135,30 @@ class BasicTest extends TestCase
         );
 
         $inotify->closeWatchers();
+    }
+
+    private function getPath(): string
+    {
+        return sys_get_temp_dir() . DIRECTORY_SEPARATOR;
+    }
+
+    private function getRandomName(): string
+    {
+        return uniqid('test-', true);
+    }
+
+    private function createFile(string $filePath): void
+    {
+        touch($filePath);
+    }
+
+    private function removeFile(string $filePath): void
+    {
+        unlink($filePath);
+    }
+
+    private function createDir(string $filePath): void
+    {
+        mkdir($filePath);
     }
 }
