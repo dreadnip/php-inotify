@@ -9,8 +9,6 @@ use InvalidArgumentException;
 
 class WatchedResourceCollection extends ArrayCollection
 {
-    protected string $type = WatchedResource::class;
-
     public function __construct(array $elements = [])
     {
         foreach ($elements as $element) {
