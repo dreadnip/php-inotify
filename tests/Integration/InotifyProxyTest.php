@@ -8,9 +8,10 @@ use Inotify\InotifyEvent;
 use Inotify\InotifyEventCodeEnum;
 use Inotify\InotifyProxy;
 use Inotify\WatchedResource;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
-class BasicTest extends TestCase
+class InotifyProxyTest extends TestCase
 {
     public function testShouldReceiveEventsOnDir(): void
     {
@@ -49,8 +50,8 @@ class BasicTest extends TestCase
         self::assertEquals(InotifyEventCodeEnum::ON_DELETE, $events[4]->getInotifyEventCode());
         self::assertEquals(InotifyEventCodeEnum::ON_CREATE_HIGH, $events[5]->getInotifyEventCode());
 
-        $results = $events[0]->toArray();
-        unset($results['timestamp']);
+        $fileCreateResult = $events[0]->toArray();
+        unset($fileCreateResult['timestamp']);
 
         self::assertEquals(
             [
@@ -63,11 +64,11 @@ class BasicTest extends TestCase
                 'customName' => $custom,
                 'pathWithFile' => $file,
             ],
-            $results
+            $fileCreateResult
         );
 
-        $results = $events[5]->toArray();
-        unset($results['timestamp']);
+        $dirCreateResult = $events[5]->toArray();
+        unset($dirCreateResult['timestamp']);
 
         self::assertEquals(
             [
@@ -80,7 +81,7 @@ class BasicTest extends TestCase
                 'customName' => $custom,
                 'pathWithFile' => $dir,
             ],
-            $results
+            $dirCreateResult
         );
 
         $inotify->closeWatchers();
@@ -132,6 +133,27 @@ class BasicTest extends TestCase
                 'pathWithFile' => $file,
             ],
             $results
+        );
+
+        $inotify->closeWatchers();
+    }
+
+    public function testFileDoesntExist(): void
+    {
+        $path = $this->getPath();
+        $randomFile = $this->getRandomName();
+        $file = $path . DIRECTORY_SEPARATOR . $randomFile;
+
+        $inotify = new InotifyProxy();
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $inotify->addWatch(
+            new WatchedResource(
+                $file,
+                InotifyEventCodeEnum::ON_ALL_EVENTS,
+                'bla'
+            )
         );
 
         $inotify->closeWatchers();

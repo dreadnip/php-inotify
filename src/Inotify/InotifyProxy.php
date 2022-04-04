@@ -57,7 +57,7 @@ class InotifyProxy implements InotifyProxyInterface
     public function addWatch(WatchedResource $watchedResource): void
     {
         if (!is_readable($watchedResource->getPathname())) {
-            throw new InvalidArgumentException('Resource not exists: "' . $watchedResource->getPathname() . '""');
+            throw new InvalidArgumentException('Resource does not exist: "' . $watchedResource->getPathname() . '""');
         }
 
         $id = inotify_add_watch(
